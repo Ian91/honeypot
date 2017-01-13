@@ -1,3 +1,6 @@
+#ifndef _SOCKET_FUNC_H
+#define _SOCKET_FUNC_H
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -9,3 +12,5 @@
 
 
 int initListener( char *_local_ipv4_string, uint16_t _local_port );
+
+#endif

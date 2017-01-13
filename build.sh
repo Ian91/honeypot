@@ -1,3 +1,3 @@
 #!/bin/bash
 
-gcc -Wall -fno-common main.c socket_func.c -o hp
+gcc -Wall -fno-common socket_func.c telnet_hp.c main.c -o hp
