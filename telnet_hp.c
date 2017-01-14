@@ -37,14 +37,24 @@ int runTelnetHoneypot( char *local_ipv4_string )
 	}
 	printf("got connection from %s\n", remote_ipv4_string);
 
-	char recv_buffer[1000];
+	uint8_t send_buffer[] = { 0xff, 0xfc, 0x25, 0xff, 0xfc, 0x26, 0xff, 0xfd, 0x18, 0xff, 0xfd, 0x20, 0xff, 0xfd,  
+	                          0x23, 0xff, 0xfd, 0x27, 0xff, 0xfd, 0x24 };
+	ssize_t bytes_sent = send( conn_sock, send_buffer, (ssize_t) sizeof(send_buffer), 0);
+	if (bytes_sent <= 0)
+	{
+		printf("error in sending bytes\n");
+		return 1;
+	}
+	printf("sent header bytes\n");
+
+	uint8_t recv_buffer[30];
 	ssize_t bytes_received = recv( conn_sock, recv_buffer, (ssize_t) sizeof(recv_buffer), 0);
-	if (bytes_received == -1)
+	if (bytes_received <= 0)
 	{
 		printf("error in receiving bytes\n");
 		return 1;
 	}
-	printf("received: %s\n", recv_buffer);
+	printf("received bytes\n");
 
 	return 0;
 }
